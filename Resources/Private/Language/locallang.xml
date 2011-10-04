@@ -7,11 +7,21 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tx_xform_domain_model_form">Form</label>
-			<label index="tx_xform_domain_model_form.name">name</label>
-			<label index="tx_xform_domain_model_form.email">email</label>
-			<label index="tx_xform_domain_model_form.nameto">nameto</label>
-			<label index="tx_xform_domain_model_form.emailto">emailto</label>
-			<label index="tx_xform_domain_model_form.description">description</label>
+			<label index="tx_xform_domain_model_form.name">Your Name</label>
+			<label index="tx_xform_domain_model_form.email">Your E-Mail</label>
+			<label index="tx_xform_domain_model_form.nameto">Friends Name</label>
+			<label index="tx_xform_domain_model_form.emailto">Friends E-Mail</label>
+			<label index="tx_xform_domain_model_form.message">Message</label>
+			<label index="tx_xform_domain_model_form.send">send Message</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="tx_xform_domain_model_form">Form</label>
+			<label index="tx_xform_domain_model_form.name">Dein Name</label>
+			<label index="tx_xform_domain_model_form.email">Deine E-Mail</label>
+			<label index="tx_xform_domain_model_form.nameto">Name deines Freundes</label>
+			<label index="tx_xform_domain_model_form.emailto">E-Mail deines Freundes</label>
+			<label index="tx_xform_domain_model_form.message">Nachricht</label>
+			<label index="tx_xform_domain_model_form.send">Nachricht schicken</label>
 		</languageKey>
 	</data>
 </T3locallang>

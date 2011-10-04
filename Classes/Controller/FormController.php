@@ -79,6 +79,11 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 	 * @return void
 	 */
 	public function newAction(Tx_Xform_Domain_Model_Form $newForm = NULL) {
+		if ($newForm === NULL) {
+			$newForm = t3lib_div::makeInstance('Tx_Xform_Domain_Model_Form');
+			$newForm->setRequestUrl(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
+		}
+	
 		$this->view->assign('newForm', $newForm);
 	}
 
@@ -90,24 +95,19 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 	 * @return void
 	 */
 	public function createAction(Tx_Xform_Domain_Model_Form $newForm) {
-		// file_put_contents('fileadmin/main/people.txt', "John Smith\n", FILE_APPEND);
-	
-		//$this->formRepository->add($newForm);
-		$this->flashMessageContainer->add('Your new Form was created.');
-		//$this->redirect('list');
-
-		//var_dump($newForm->getName());
-		
 		$view = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
 		$view->setTemplatePathAndFilename('typo3conf/ext/xform/Resources/Private/Templates/Email/TipAFriend.html');
-		return $view->render();
+		$view->assign('newForm', $newForm);
+		$body = $view->render();
 		
-		// $mail = t3lib_div::makeInstance('t3lib_mail_Message');
-		// $mail->setFrom(array($newForm->getEmail() => $newForm->getName()));
-		// $mail->setTo(array($newForm->getEmailTo() => $newForm->getNameTo()));
-		// $mail->setSubject($subject);
-		// $mail->setBody($body);
-		// $mail->send();
+		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
+		$mail->setFrom(array($newForm->getEmail() => $newForm->getName()));
+		$mail->setTo(array($newForm->getEmailTo() => $newForm->getNameTo()));
+		$mail->setSubject('Tip von ' . $newForm->getName());
+		$mail->setBody($body);
+		$mail->send();
+		
+		$this->view->assign('newForm', $newForm);
 	}
 
 	/**

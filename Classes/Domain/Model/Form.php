@@ -61,7 +61,12 @@ class Tx_Xform_Domain_Model_Form extends Tx_Extbase_DomainObject_AbstractEntity 
 	/**
 	 * @var string
 	 */
-	protected $description;
+	protected $message;
+	
+	/**
+	 * @var string
+	 */
+	protected $requestUrl;	
 
 	/**
 	 * __construct
@@ -133,18 +138,40 @@ class Tx_Xform_Domain_Model_Form extends Tx_Extbase_DomainObject_AbstractEntity 
 	}
 
 	/**
-	 * @return string $description
+	 * @return string $message
 	 */
-	public function getDescription() {
-		return $this->description;
+	public function getMessage() {
+		return $this->message;
 	}
 
 	/**
-	 * @param string $description
+	 * @param string $message
 	 * @return void
 	 */
-	public function setDescription($description) {
-		$this->description = $description;
+	public function setMessage($message) {
+		$this->message = $message;
+	}
+	
+	/**
+	 * @return string $requestUrl
+	 */
+	public function getRequestUrl() {
+		return $this->requestUrl;
+	}
+	
+	/**
+	 * @return string $requestUrl encapsulated with "<|>"
+	 */
+	public function getRequestUrlForTextMail() {
+		return '<' . $this->requestUrl . '>';
+	}
+
+	/**
+	 * @param string $requestUrl
+	 * @return void
+	 */
+	public function setRequestUrl($requestUrl) {
+		$this->requestUrl = $requestUrl;
 	}
 
 }

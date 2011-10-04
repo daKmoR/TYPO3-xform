@@ -1,6 +1,6 @@
 {namespace x=Tx_Xform_ViewHelpers}
 
-<x:CssToInline cssFile="typo3conf/ext/xform/Resources/Private/Templates/Email/TipAFriend.css">
+<x:CssToInline cssFile="EXT:xform/Resources/Private/Templates/Email/TipAFriend.css">
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -15,18 +15,25 @@
 	<center>
 		<table cellspacing="0" cellpadding="0" border="0" id="outerTable">
 			<tr>
-				<td align="center" valign="top" id="aboveHeader">Wird diese Nachricht nicht richtig dargestellt <a href="http://www.dermann.at/newsletters/einladung-a/">klicken Sie bitte hier</a> für die Online-Version.</td>
-			</tr>
-			<tr>
 				<td align="center" valign="middle" id="header">
-					<p><img src="fileadmin/main/newsletter/header/Header-700x198.jpg" alt="" width="700" height="198" /></p>
+					<p>My Custom Header</p>
 				</td>
 			</tr>
 			<tr>
-				<td align="center" valign="middle" id="footer" background="fileadmin/templates/default/direct_mail/images/Footer_700x112.jpg">
-					<strong>"Der Mann, der verwöhnt"</strong><br />
-					Backwaren Gmbh & Co, 1230 Wien, Perfektastrasse 100<br />
-					<a class="redlink" href="http://www.dermann.at">www.dermann.at</a>
+				<td id="content">
+					<h1>Dear {newForm.nameTo}!</h1>
+					<p>I would like to suggest to you the following url:</p>
+					<p><a href="{newForm.requestUrl}">{newForm.requestUrl}</a></p>
+					<p>{newForm.message -> f:format.nl2br()}</p>
+					<br />
+					<p>best regards</p>
+					<p>{newForm.name}</p>
+				</td>
+			<tr>
+				<td align="center" valign="middle" id="footer">
+					<p>This message is sent by an link suggestion feature on:</p>
+					<p><strong>"MyCompany Slogan"</strong></p>
+					<p>MyCompany, 1000 MyCity, MyStreet 1</p>
 				</td>
 			</tr>
 		</table>

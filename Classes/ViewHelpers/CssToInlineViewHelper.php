@@ -60,10 +60,11 @@ class Tx_Xform_ViewHelpers_CssToInlineViewHelper extends Tx_Fluid_Core_ViewHelpe
 	 * @return string rendered form
 	 */
 	public function render($cssFile) {
+		$cssFile = t3lib_div::getFileAbsFileName($cssFile);
 		$content = $this->renderChildren();
 		
 		$emogrifier = t3lib_div::makeInstance('Emogrifier');
-		$emogrifier->setCSS('p { background: #ff0000; }');
+		$emogrifier->setCSS(file_get_contents($cssFile));
 		$emogrifier->setHTML($content);
 		
 		return $emogrifier->emogrify();
