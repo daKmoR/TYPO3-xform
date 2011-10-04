@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the X Form extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_xform_domain_model_form">Form</label>
+			<label index="tx_xform_domain_model_form.name">name</label>
+			<label index="tx_xform_domain_model_form.email">email</label>
+			<label index="tx_xform_domain_model_form.nameto">nameto</label>
+			<label index="tx_xform_domain_model_form.emailto">emailto</label>
+			<label index="tx_xform_domain_model_form.description">description</label>
+		</languageKey>
+	</data>
+</T3locallang>
