@@ -83,7 +83,6 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 			$newForm = t3lib_div::makeInstance('Tx_Xform_Domain_Model_Form');
 			$newForm->setRequestUrl(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
 		}
-	
 		$this->view->assign('newForm', $newForm);
 	}
 
@@ -96,7 +95,8 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 	 */
 	public function createAction(Tx_Xform_Domain_Model_Form $newForm) {
 		$view = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
-		$view->setTemplatePathAndFilename('typo3conf/ext/xform/Resources/Private/Templates/Email/TipAFriend.html');
+		$view->setTemplatePathAndFilename($this->view->getTemplateRootPath() . 'Email/TipAFriend.html');
+		$view->assign('templateRootPath', $this->view->getTemplateRootPath());
 		$view->assign('newForm', $newForm);
 		$body = $view->render();
 		
@@ -104,7 +104,7 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 		$mail->setFrom(array($newForm->getEmail() => $newForm->getName()));
 		$mail->setTo(array($newForm->getEmailTo() => $newForm->getNameTo()));
 		$mail->setSubject('Tip von ' . $newForm->getName());
-		$mail->setBody($body);
+		$mail->setBody($body, 'text/html');
 		$mail->send();
 		
 		$this->view->assign('newForm', $newForm);

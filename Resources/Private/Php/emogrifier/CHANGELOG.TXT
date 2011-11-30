@@ -48,3 +48,6 @@ Fixed an error where CSS @media types weren't being parsed correctly... Thanks W
 
 2011-08-03  
 Fixed an error where an empty selector at the beginning of the CSS would cause a parse error on the next selector... Thanks Alexei T.!
+
+2011-10-13
+Fully fixed a bug introduced in 2011-06-08 where selectors at the beginning of the CSS would be parsed incorrectly... Thanks Thomas A.!

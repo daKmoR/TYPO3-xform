@@ -16,10 +16,10 @@
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tx_xform_domain_model_form">Form</label>
-			<label index="tx_xform_domain_model_form.name">Dein Name</label>
-			<label index="tx_xform_domain_model_form.email">Deine E-Mail</label>
-			<label index="tx_xform_domain_model_form.nameto">Name deines Freundes</label>
-			<label index="tx_xform_domain_model_form.emailto">E-Mail deines Freundes</label>
+			<label index="tx_xform_domain_model_form.name">Ihr Name</label>
+			<label index="tx_xform_domain_model_form.email">Ihre E-Mail</label>
+			<label index="tx_xform_domain_model_form.nameto">Name des Empfängers</label>
+			<label index="tx_xform_domain_model_form.emailto">E-Mail des Empfängers</label>
 			<label index="tx_xform_domain_model_form.message">Nachricht</label>
 			<label index="tx_xform_domain_model_form.send">Nachricht schicken</label>
 		</languageKey>

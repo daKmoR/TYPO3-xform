@@ -1,30 +1,13 @@
 plugin.tx_xform {
 	view {
-		templateRootPath = {$plugin.tx_xform.view.templateRootPath}
-		partialRootPath = {$plugin.tx_xform.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_xform.view.layoutRootPath}
+		templateRootPath = EXT:xform/Resources/Private/Templates/
+		partialRootPath = EXT:xform/Resources/Private/Partials/
+		layoutRootPath = EXT:xform/Resources/Private/Layouts/
 	}
 	persistence {
-		storagePid = {$plugin.tx_xform.persistence.storagePid}
+		storagePid = 
 	}
 }
 
 plugin.tx_xform._CSS_DEFAULT_STYLE (
-	input.f3-form-error {
-		background-color:#FF9F9F;
-		border: 1px #FF0000 solid;
-	}
-
-	.tx-xform table {
-		border-collapse:separate;
-		border-spacing:10px;
-	}
-
-	.tx-xform table th {
-		font-weight:bold;
-	}
-
-	.tx-xform table td {
-		vertical-align:top;
-	}
 )

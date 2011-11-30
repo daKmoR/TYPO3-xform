@@ -103,35 +103,11 @@ class Tx_Xform_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormViewH
 		';
 		$this->tag->setContent($content);
 		
-		return $this->tag->render();
-	}
-
-	/**
-	 * Sets the "action" attribute of the form tag
-	 *
-	 * @return void
-	 */
-	protected function setFormActionUri() {
-		if ($this->hasArgument('actionUri')) {
-			$formActionUri = $this->arguments['actionUri'];
-		} else {
-			$uriBuilder = $this->controllerContext->getUriBuilder();
-			$formActionUri = $uriBuilder
-				->reset()
-				->setTargetPageUid($this->arguments['pageUid'])
-				->setTargetPageType($this->arguments['pageType'])
-				->setNoCache($this->arguments['noCache'])
-				->setUseCacheHash(!$this->arguments['noCacheHash'])
-				->setSection($this->arguments['section'])
-				->setCreateAbsoluteUri($this->arguments['absolute'])
-				->setArguments((array)$this->arguments['additionalParams'])
-				->setAddQueryString($this->arguments['addQueryString'])
-				->setArgumentsToBeExcludedFromQueryString((array)$this->arguments['argumentsToBeExcludedFromQueryString'])
-				->setFormat($this->arguments['format'])
-				->uriFor($this->arguments['action'], $this->arguments['arguments'], $this->arguments['controller'], $this->arguments['extensionName'], $this->arguments['pluginName']);
-			$this->formActionUriArguments = $uriBuilder->getArguments();
+		if ($this->tag->hasAttribute('id')) {
+			$this->tag->setAttribute('action', $this->tag->getAttribute('action') . '#' . $this->tag->getAttribute('id'));
 		}
-		$this->tag->addAttribute('action', $formActionUri);
+		
+		return $this->tag->render();
 	}
 
 }
