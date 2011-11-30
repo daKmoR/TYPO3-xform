@@ -35,15 +35,11 @@
 class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
-	 * formRepository
-	 *
 	 * @var Tx_Xform_Domain_Repository_FormRepository
 	 */
 	protected $formRepository;
 
 	/**
-	 * injectFormRepository
-	 *
 	 * @param Tx_Xform_Domain_Repository_FormRepository $formRepository
 	 * @return void
 	 */
@@ -52,28 +48,6 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 	}
 
 	/**
-	 * action list
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$forms = $this->formRepository->findAll();
-		$this->view->assign('forms', $forms);
-	}
-
-	/**
-	 * action show
-	 *
-	 * @param $form
-	 * @return void
-	 */
-	public function showAction(Tx_Xform_Domain_Model_Form $form = NULL) {
-		$this->view->assign('form', $form);
-	}
-
-	/**
-	 * action new
-	 *
 	 * @param $newForm
 	 * @dontvalidate $newForm
 	 * @return void
@@ -108,40 +82,6 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 		$mail->send();
 		
 		$this->view->assign('newForm', $newForm);
-	}
-
-	/**
-	 * action edit
-	 *
-	 * @param $form
-	 * @return void
-	 */
-	public function editAction(Tx_Xform_Domain_Model_Form $form) {
-		$this->view->assign('form', $form);
-	}
-
-	/**
-	 * action update
-	 *
-	 * @param $form
-	 * @return void
-	 */
-	public function updateAction(Tx_Xform_Domain_Model_Form $form) {
-		$this->formRepository->update($form);
-		$this->flashMessageContainer->add('Your Form was updated.');
-		$this->redirect('list');
-	}
-
-	/**
-	 * action delete
-	 *
-	 * @param $form
-	 * @return void
-	 */
-	public function deleteAction(Tx_Xform_Domain_Model_Form $form) {
-		$this->formRepository->remove($form);
-		$this->flashMessageContainer->add('Your Form was removed.');
-		$this->redirect('list');
 	}
 
 }
