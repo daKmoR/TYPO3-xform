@@ -32,127 +32,62 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Xform_Domain_Model_Form extends Tx_Extbase_DomainObject_AbstractEntity implements Tx_Xform_Domain_Model_FormInterface {
-
-	/**
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $name;
-
-	/**
-	 * @var string
-	 * @validate EmailAddress
-	 */
-	protected $email;
-
-	/**
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $nameto;
-
-	/**
-	 * @var string
-	 * @validate EmailAddress
-	 */
-	protected $emailto;
-
-	/**
-	 * @var string
-	 */
-	protected $requestUrl;	
-
-	/**
-	 * __construct
-	 *
-	 * @return void
-	 */
-	public function __construct() {
-
-	}
+interface Tx_Xform_Domain_Model_FormInterface {
 
 	/**
 	 * @return string $name
 	 */
-	public function getName() {
-		return $this->name;
-	}
+	public function getName();
 
 	/**
 	 * @param string $name
 	 * @return void
 	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+	public function setName($name);
 
 	/**
 	 * @return string $email
 	 */
-	public function getEmail() {
-		return $this->email;
-	}
+	public function getEmail();
 
 	/**
 	 * @param string $email
 	 * @return void
 	 */
-	public function setEmail($email) {
-		$this->email = $email;
-	}
+	public function setEmail($email);
 
 	/**
 	 * @return string $nameto
 	 */
-	public function getNameto() {
-		return $this->nameto;
-	}
+	public function getNameto();
 
 	/**
 	 * @param string $nameto
 	 * @return void
 	 */
-	public function setNameto($nameto) {
-		$this->nameto = $nameto;
-	}
+	public function setNameto($nameto);
 
 	/**
 	 * @return string $emailto
 	 */
-	public function getEmailto() {
-		return $this->emailto;
-	}
+	public function getEmailto();
 
 	/**
 	 * @param string $emailto
 	 * @return void
 	 */
-	public function setEmailto($emailto) {
-		$this->emailto = $emailto;
-	}
+	public function setEmailto($emailto);
 
 	/**
 	 * @return string $requestUrl
 	 */
-	public function getRequestUrl() {
-		return $this->requestUrl;
-	}
+	public function getRequestUrl();
 	
-	/**
-	 * @return string $requestUrl encapsulated with "<|>"
-	 */
-	public function getRequestUrlForTextMail() {
-		return '<' . $this->requestUrl . '>';
-	}
-
 	/**
 	 * @param string $requestUrl
 	 * @return void
 	 */
-	public function setRequestUrl($requestUrl) {
-		$this->requestUrl = $requestUrl;
-	}
+	public function setRequestUrl($requestUrl);
 
 }
 ?>

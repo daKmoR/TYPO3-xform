@@ -34,27 +34,47 @@
  */
 class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_ActionController {
 
+	// /**
+	 // * @var Tx_Xform_Domain_Repository_FormRepository
+	 // */
+	// protected $formRepository;
+
+	// /**
+	 // * @param Tx_Xform_Domain_Repository_FormRepository $formRepository
+	 // * @return void
+	 // */
+	// public function injectFormRepository(Tx_Xform_Domain_Repository_FormRepository $formRepository) {
+		// $this->formRepository = $formRepository;
+	// }
+	
 	/**
-	 * @var Tx_Xform_Domain_Repository_FormRepository
+	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
 	 */
-	protected $formRepository;
+	protected $configurationManager;
 
 	/**
-	 * @param Tx_Xform_Domain_Repository_FormRepository $formRepository
+	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
-	public function injectFormRepository(Tx_Xform_Domain_Repository_FormRepository $formRepository) {
-		$this->formRepository = $formRepository;
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+		$this->configurationManager = $configurationManager;
+	}
+	
+	/**
+	 * @return void
+	 */
+	protected function initializeAction() {
+		$this->settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 	}
 
 	/**
-	 * @param $newForm
+	 * @param $newForm Tx_Xform_Domain_Model_FormInterface
 	 * @dontvalidate $newForm
 	 * @return void
 	 */
-	public function newAction(Tx_Xform_Domain_Model_Form $newForm = NULL) {
+	public function newAction($newForm = NULL) {
 		if ($newForm === NULL) {
-			$newForm = t3lib_div::makeInstance('Tx_Xform_Domain_Model_Form');
+			$newForm = t3lib_div::makeInstance($this->settings['class']);
 			$newForm->setRequestUrl(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
 		}
 		$this->view->assign('newForm', $newForm);
@@ -67,12 +87,19 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 	 * @validate $newForm Tx_Xform_Domain_Validator_XformValidator
 	 * @return void
 	 */
-	public function createAction(Tx_Xform_Domain_Model_Form $newForm) {
-		$view = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
-		$view->setTemplatePathAndFilename($this->view->getTemplateRootPath() . 'Email/TipAFriend.html');
-		$view->assign('templateRootPath', $this->view->getTemplateRootPath());
-		$view->assign('newForm', $newForm);
-		$body = $view->render();
+	public function createAction(Tx_Xform_Domain_Model_FormInterface $newForm) {
+		$emailView = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
+		
+		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+		$templateRootPath = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
+		$templateName = substr($this->settings['class'], strrpos($this->settings['class'], '_')+1);
+		$templatePathAndFilename = $templateRootPath . 'Email/' . $templateName . '.html';
+		
+		$emailView->setTemplatePathAndFilename($templatePathAndFilename);
+		
+		$emailView->assign('templateRootPath', $templateRootPath);
+		$emailView->assign('newForm', $newForm);
+		$body = $emailView->render();
 		
 		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
 		$mail->setFrom(array($newForm->getEmail() => $newForm->getName()));
@@ -82,7 +109,44 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 		$mail->send();
 		
 		$this->view->assign('newForm', $newForm);
+		return $this->view->render();
+	}
+	
+	/**
+	 * @param $newForm
+	 * @validate $newForm Tx_Xform_Domain_Validator_XformValidator
+	 * @return void
+	 */
+	public function createMessageAction(Tx_Xform_Domain_Model_Message $newForm) {
+		$this->forward('create', 'Form', 'xform', array('newForm' => $newForm) );
+	}	
+	
+	/**
+	 * @param $newForm
+	 * @validate $newForm Tx_Xform_Domain_Validator_XformValidator
+	 * @return void
+	 */
+	public function createTipAFriendAction(Tx_Xform_Domain_Model_TipAFriend $newForm) {
+		$this->forward('create', 'Form', 'xform', array('newForm' => $newForm) );
+	}
+	
+	/**
+	 * @param $newForm
+	 * @validate $newForm Tx_Xform_Domain_Validator_XformValidator
+	 * @return void
+	 */
+	public function createCustom1Action(Tx_Xform_Domain_Model_Custom1 $newForm) {
+		$this->forward('create', 'Form', 'xform', array('newForm' => $newForm) );
 	}
 
+	/**
+	 * @param $newForm
+	 * @validate $newForm Tx_Xform_Domain_Validator_XformValidator
+	 * @return void
+	 */
+	public function createCustom2Action(Tx_Xform_Domain_Model_Custom2 $newForm) {
+		$this->forward('create', 'Form', 'xform', array('newForm' => $newForm) );
+	}
+	
 }
 ?>

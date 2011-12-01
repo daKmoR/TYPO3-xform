@@ -7,6 +7,9 @@ plugin.tx_xform {
 	persistence {
 		storagePid = 
 	}
+	settings {
+		class = Tx_Xform_Domain_Model_Message
+	}
 }
 
 plugin.tx_xform._CSS_DEFAULT_STYLE (

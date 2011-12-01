@@ -7,11 +7,11 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Xform',
 	array(
-		'Form' => 'new, create',
+		'Form' => 'new, create, createMessage, createTipAFriend, createCustom1, createCustom2',
 	),
 	// non-cacheable actions
 	array(
-		'Form' => 'create',
+		'Form' => 'create, createMessage, createTipAFriend, createCustom1, createCustom2',
 	)
 );
 
