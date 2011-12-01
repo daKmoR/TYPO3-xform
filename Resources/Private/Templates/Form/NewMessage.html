@@ -3,7 +3,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-	<x:form method="post" action="create" name="newForm" object="{newForm}">
+	<x:form method="post" action="createMessage" name="newForm" object="{newForm}">
 		<table>
 			<tr>
 				<td><label for="name"><f:translate key="tx_xform_domain_model_form.name" /></label></td>
@@ -20,6 +20,10 @@
 			<tr>
 				<td><label for="emailto"><f:translate key="tx_xform_domain_model_form.emailto" /></label></td>
 				<td><f:form.textfield property="emailto" /></td>
+			</tr>
+			<tr>
+				<td><label for="description"><f:translate key="tx_xform_domain_model_form.message" /></label></td>
+				<td><f:form.textarea property="message" rows="3" cols="15" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
