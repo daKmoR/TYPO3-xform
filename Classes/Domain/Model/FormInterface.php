@@ -57,26 +57,26 @@ interface Tx_Xform_Domain_Model_FormInterface {
 	public function setEmail($email);
 
 	/**
-	 * @return string $nameto
+	 * @return string
 	 */
-	public function getNameto();
+	public function getNameClient();
 
 	/**
-	 * @param string $nameto
+	 * @param string $nameClient
 	 * @return void
 	 */
-	public function setNameto($nameto);
+	public function setNameClient($nameClient);
 
 	/**
-	 * @return string $emailto
+	 * @return string
 	 */
-	public function getEmailto();
+	public function getEmailClient();
 
 	/**
-	 * @param string $emailto
+	 * @param string $emailClient
 	 * @return void
 	 */
-	public function setEmailto($emailto);
+	public function setEmailClient($emailClient);
 
 	/**
 	 * @return string $subject

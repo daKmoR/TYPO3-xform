@@ -108,20 +108,45 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 		$emailView->assign('newForm', $newForm);
 		$body = $emailView->render();
 		
-		// echo $newForm->getEmailSubject() . $body;
-		// die();
-		
-		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
-		$mail->setFrom(array($newForm->getEmail() => $newForm->getName()));
-		$mail->setTo(array($newForm->getEmailTo() => $newForm->getNameTo()));
-		$mail->setSubject($newForm->getEmailSubject());
-		$mail->setBody($body, 'text/html');
-		$mail->send();
+		$this->sendMailToClient($newForm, $body);
+		$this->sendMailToCustomer($newForm, $body);
 		
 		$this->view->setTemplatePathAndFilename($templateRootPath . 'Form/Create' . $templateName . '.html');
 		
 		$this->view->assign('newForm', $newForm);
 		return $this->view->render();
+	}
+	
+	/**
+	 * sends a mail to the site owner
+	 *
+	 * @param $newForm
+	 * @param $body string
+	 * @return void
+	 */	
+	public function sendMailToClient($newForm, $body) {
+		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
+		$mail->setFrom(array($newForm->getEmail() => $newForm->getName()));
+		$mail->setTo(array($newForm->getEmailClient() => $newForm->getNameClient()));
+		$mail->setSubject($newForm->getEmailSubject());
+		$mail->setBody($body, 'text/html');
+		$mail->send();
+	}
+	
+	/**
+	 * sends a mail to the customer who just filled out the form
+	 *
+	 * @param $newForm
+	 * @param $body string
+	 * @return void
+	 */	
+	public function sendMailToCustomer($newForm, $body) {
+		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
+		$mail->setFrom(array($newForm->getEmailClient() => $newForm->getNameClient()));
+		$mail->setTo(array($newForm->getEmail() => $newForm->getName()));
+		$mail->setSubject($newForm->getEmailSubject());
+		$mail->setBody($body, 'text/html');
+		$mail->send();
 	}
 	
 	/**

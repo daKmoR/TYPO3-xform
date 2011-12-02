@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Xform_Domain_Model_Custom1 extends Tx_Xform_Domain_Model_Message {
+class Tx_Xform_Domain_Model_Custom2 extends Tx_Xform_Domain_Model_Message {
 
 	/**
 	 * @var string
@@ -47,31 +47,6 @@ class Tx_Xform_Domain_Model_Custom1 extends Tx_Xform_Domain_Model_Message {
 	protected $lastName;
 
 	/**
-	 * @var string
-	 */
-	protected $gender;
-
-	/**
-	 * @var string
-	 */
-	protected $parentName;
-	
-	/**
-	 * @var string
-	 */
-	protected $street;
-
-	/**
-	 * @var string
-	 */
-	protected $plz;
-
-	/**
-	 * @var string
-	 */
-	protected $place;
-
-	/**
 	 * @var DateTime
 	 * @validate DateTime
 	 */
@@ -80,7 +55,22 @@ class Tx_Xform_Domain_Model_Custom1 extends Tx_Xform_Domain_Model_Message {
 	/**
 	 * @var string
 	 */
-	protected $parentPhone;	
+	protected $phone;
+	
+	/**
+	 * @var string
+	 */
+	protected $firstName2;
+
+	/**
+	 * @var string
+	 */
+	protected $lastName2;
+	
+	/**
+	 * @var DateTime
+	 */
+	protected $birthday2;
 	
 	/**
 	 * @var string
@@ -88,32 +78,26 @@ class Tx_Xform_Domain_Model_Custom1 extends Tx_Xform_Domain_Model_Message {
 	protected $sportType;	
 	
 	/**
-	 * @var string
+	 * @var DateTime
+	 * @validate DateTime
 	 */
 	protected $classDate;
 	
 	/**
 	 * @var string
 	 */
+	protected $classStart;
+	
+	/**
+	 * @var string
+	 */
+	protected $classEnd;
+	
+	/**
+	 * @var string
+	 */
 	protected $skill;
 
-	/**
-	 * @var string
-	 */
-	protected $dragLift;
-
-	/**
-	 * @var string
-	 */
-	protected $liftCard;
-	
-	/**
-	 * @return string
-	 */
-	public function getParticipantName() {
-		return $this->getFirstName() . ' ' . $this->getLastName();
-	}
-	
 	/**
 	 * @return string
 	 */
@@ -131,29 +115,56 @@ class Tx_Xform_Domain_Model_Custom1 extends Tx_Xform_Domain_Model_Message {
 	/**
 	 * @return string
 	 */
-	public function getLiftCardValue() {
-		return $this->settings['liftCards'][$this->liftCard];
+	public function getClassStartValue() {
+		return $this->settings['classStarts'][$this->classStart];
 	}
 	
 	/**
 	 * @return string
 	 */
-	public function getClassDateValue() {
-		return $this->settings['classDates'][$this->classDate];
+	public function getClassEndValue() {
+		return $this->settings['classEnds'][$this->classEnd];
 	}
 	
 	/**
 	 * @return string
 	 */
 	public function getPrice() {
-		return $this->settings['classPrices'][$this->classDate];
+		$price = 0;
+		$singleHour = 38;
+		$fivePackHours = 170;
+		if ($this->getName2() !== ' ') {
+			$singleHour = 48;
+			$fivePackHours = 215;
+		}
+		$duration = ($this->getClassEnd() - $this->getClassStart()) / 100;
+		if ($duration >= 5) {
+			$price = $fivePackHours;
+			$duration -= 5;
+		}
+		$price += $singleHour * $duration;
+		return $price;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getName() {
+		return $this->getFirstName() . ' ' . $this->getLastName();
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getName2() {
+		return $this->getFirstName2() . ' ' . $this->getLastName2();
 	}
 
 	/**
 	 * @return string $subject
 	 */
 	public function getEmailSubject() {
-		return $this->getSubject() . ' ' . $this->getClassDateValue();
+		return $this->getSubject() . ' ' . $this->getClassDate()->format('d.m.Y') . ' ' . $this->getClassStartValue() . ' - ' . $this->getClassEndValue();
 	}
 
 }

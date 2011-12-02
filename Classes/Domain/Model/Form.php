@@ -50,13 +50,13 @@ class Tx_Xform_Domain_Model_Form extends Tx_Extbase_DomainObject_AbstractEntity 
 	 * @var string
 	 * @validate NotEmpty
 	 */
-	protected $nameto;
+	protected $nameClient;
 
 	/**
 	 * @var string
 	 * @validate EmailAddress
 	 */
-	protected $emailto;
+	protected $emailClient;
 	
 	/**
 	 * @var string
@@ -100,33 +100,33 @@ class Tx_Xform_Domain_Model_Form extends Tx_Extbase_DomainObject_AbstractEntity 
 	}
 
 	/**
-	 * @return string $nameto
+	 * @return string
 	 */
-	public function getNameto() {
-		return $this->nameto;
+	public function getNameClient() {
+		return $this->nameClient;
 	}
 
 	/**
-	 * @param string $nameto
+	 * @param string $nameClient
 	 * @return void
 	 */
-	public function setNameto($nameto) {
-		$this->nameto = $nameto;
+	public function setNameClient($nameClient) {
+		$this->nameClient = $nameClient;
 	}
 
 	/**
-	 * @return string $emailto
+	 * @return string
 	 */
-	public function getEmailto() {
-		return $this->emailto;
+	public function getEmailClient() {
+		return $this->emailClient;
 	}
 
 	/**
-	 * @param string $emailto
+	 * @param string $emailClient
 	 * @return void
 	 */
-	public function setEmailto($emailto) {
-		$this->emailto = $emailto;
+	public function setEmailClient($emailClient) {
+		$this->emailClient = $emailClient;
 	}
 
 	/**
@@ -164,6 +164,21 @@ class Tx_Xform_Domain_Model_Form extends Tx_Extbase_DomainObject_AbstractEntity 
 	 */
 	public function setSettings($settings) {
 		$this->settings = $settings;
+	}
+
+	/**
+	 * Magic method to support automatic setters and getters
+	 * 
+	 * @return mixed
+	 */
+	public function __call($method, $args) {
+		$property = lcfirst(substr($method, 3));
+		if (strpos($method, 'set') === 0 && property_exists($this, $property)) {
+			$this->$property = $args[0];
+		}
+		if (strpos($method, 'get') === 0 && property_exists($this, $property)) {
+			return $this->$property;
+		}
 	}
 
 }
