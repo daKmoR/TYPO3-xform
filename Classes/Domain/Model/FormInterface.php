@@ -79,15 +79,20 @@ interface Tx_Xform_Domain_Model_FormInterface {
 	public function setEmailto($emailto);
 
 	/**
-	 * @return string $requestUrl
+	 * @return string $subject
 	 */
-	public function getRequestUrl();
-	
+	public function getSubject();
+
 	/**
-	 * @param string $requestUrl
+	 * @param string $subject
 	 * @return void
 	 */
-	public function setRequestUrl($requestUrl);
+	public function setSubject($subject);
+
+	/**
+	 * @return string
+	 */
+	public function getEmailSubject();
 
 }
 ?>

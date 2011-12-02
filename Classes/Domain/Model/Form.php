@@ -57,20 +57,17 @@ class Tx_Xform_Domain_Model_Form extends Tx_Extbase_DomainObject_AbstractEntity 
 	 * @validate EmailAddress
 	 */
 	protected $emailto;
-
+	
 	/**
 	 * @var string
+	 * @validate NotEmpty
 	 */
-	protected $requestUrl;	
-
+	protected $subject;
+	
 	/**
-	 * __construct
-	 *
-	 * @return void
+	 * @var array
 	 */
-	public function __construct() {
-
-	}
+	protected $settings;
 
 	/**
 	 * @return string $name
@@ -133,25 +130,40 @@ class Tx_Xform_Domain_Model_Form extends Tx_Extbase_DomainObject_AbstractEntity 
 	}
 
 	/**
-	 * @return string $requestUrl
+	 * @return string $subject
 	 */
-	public function getRequestUrl() {
-		return $this->requestUrl;
-	}
-	
-	/**
-	 * @return string $requestUrl encapsulated with "<|>"
-	 */
-	public function getRequestUrlForTextMail() {
-		return '<' . $this->requestUrl . '>';
+	public function getSubject() {
+		return $this->subject;
 	}
 
 	/**
-	 * @param string $requestUrl
+	 * @param string $subject
 	 * @return void
 	 */
-	public function setRequestUrl($requestUrl) {
-		$this->requestUrl = $requestUrl;
+	public function setSubject($subject) {
+		$this->subject = $subject;
+	}
+	
+	/**
+	 * @return string $subject
+	 */
+	public function getEmailSubject() {
+		return $this->getSubject();
+	}
+
+	/**
+	 * @return string $settings
+	 */
+	public function getSettings() {
+		return $this->settings;
+	}
+
+	/**
+	 * @param string $settings
+	 * @return void
+	 */
+	public function setSettings($settings) {
+		$this->settings = $settings;
 	}
 
 }

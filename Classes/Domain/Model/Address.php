@@ -32,33 +32,66 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Xform_Domain_Model_TipAFriend extends Tx_Xform_Domain_Model_Message {
+class Tx_Xform_Domain_Model_Address extends Tx_Xform_Domain_Model_Form {
 
 	/**
 	 * @var string
 	 */
-	protected $requestUrl;
-
-	/**
-	 * @return string $requestUrl
-	 */
-	public function getRequestUrl() {
-		return $this->requestUrl;
-	}
+	protected $street;
 	
 	/**
-	 * @return string $requestUrl encapsulated with "<|>"
+	 * @var string
 	 */
-	public function getRequestUrlForTextMail() {
-		return '<' . $this->requestUrl . '>';
+	protected $place;
+	
+	/**
+	 * @var string
+	 */
+	protected $plz;	
+
+	/**
+	 * @return string $street
+	 */
+	public function getStreet() {
+		return $this->street;
 	}
 
 	/**
-	 * @param string $requestUrl
+	 * @param string $street
 	 * @return void
 	 */
-	public function setRequestUrl($requestUrl) {
-		$this->requestUrl = $requestUrl;
+	public function setStreet($street) {
+		$this->street = $street;
+	}
+
+	/**
+	 * @return string $plz
+	 */
+	public function getPlz() {
+		return $this->plz;
+	}
+
+	/**
+	 * @param string $plz
+	 * @return void
+	 */
+	public function setPlz($plz) {
+		$this->plz = $plz;
+	}
+
+	/**
+	 * @return string $place
+	 */
+	public function getPlace() {
+		return $this->place;
+	}
+
+	/**
+	 * @param string $place
+	 * @return void
+	 */
+	public function setPlace($place) {
+		$this->place = $place;
 	}
 
 }

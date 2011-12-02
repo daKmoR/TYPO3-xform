@@ -75,14 +75,13 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 	public function newAction($newForm = NULL) {
 		if ($newForm === NULL) {
 			$newForm = t3lib_div::makeInstance($this->settings['class']);
-			$newForm->setRequestUrl(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
+			//$newForm->setRequestUrl(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
 		}
 		
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$templateRootPath = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
 		$templateName = substr($this->settings['class'], strrpos($this->settings['class'], '_')+1);
-		$templatePathAndFilename = $templateRootPath . 'Form/New' . $templateName . '.html';
-		$this->view->setTemplatePathAndFilename($templatePathAndFilename);
+		$this->view->setTemplatePathAndFilename($templateRootPath . 'Form/New' . $templateName . '.html');
 		
 		$this->view->assign('newForm', $newForm);
 	}
@@ -95,27 +94,31 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 	 * @return void
 	 */
 	public function createAction(Tx_Xform_Domain_Model_FormInterface $newForm) {
+		$newForm->setSettings($this->settings);
+	
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$templateRootPath = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
+		$templateName = substr($this->settings['class'], strrpos($this->settings['class'], '_')+1);
 		
 		$emailView = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
 		$emailTemplateName = substr($this->settings['class'], strrpos($this->settings['class'], '_')+1);
-		$emailTemplatePathAndFilename = $templateRootPath . 'Email/' . $emailTemplateName . '.html';
-		$emailView->setTemplatePathAndFilename($emailTemplatePathAndFilename);
+		$emailView->setTemplatePathAndFilename($templateRootPath . 'Email/' . $emailTemplateName . '.html');
 		
 		$emailView->assign('templateRootPath', $templateRootPath);
 		$emailView->assign('newForm', $newForm);
 		$body = $emailView->render();
 		
+		// echo $newForm->getEmailSubject() . $body;
+		// die();
+		
 		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
 		$mail->setFrom(array($newForm->getEmail() => $newForm->getName()));
 		$mail->setTo(array($newForm->getEmailTo() => $newForm->getNameTo()));
-		$mail->setSubject('Tip von ' . $newForm->getName());
+		$mail->setSubject($newForm->getEmailSubject());
 		$mail->setBody($body, 'text/html');
 		$mail->send();
 		
-		$templatePathAndFilename = $templateRootPath . 'Form/Create' . $templateName . '.html';
-		$this->view->setTemplatePathAndFilename($templatePathAndFilename);
+		$this->view->setTemplatePathAndFilename($templateRootPath . 'Form/Create' . $templateName . '.html');
 		
 		$this->view->assign('newForm', $newForm);
 		return $this->view->render();
