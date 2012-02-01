@@ -75,7 +75,6 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 	public function newAction($newForm = NULL) {
 		if ($newForm === NULL) {
 			$newForm = t3lib_div::makeInstance($this->settings['class']);
-			//$newForm->setRequestUrl(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
 		}
 		
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
@@ -108,8 +107,7 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 		$emailView->assign('newForm', $newForm);
 		$body = $emailView->render();
 		
-		$this->sendMailToClient($newForm, $body);
-		$this->sendMailToCustomer($newForm, $body);
+		$this->sendEmails($newForm, $body);
 		
 		$this->view->setTemplatePathAndFilename($templateRootPath . 'Form/Create' . $templateName . '.html');
 		
@@ -118,35 +116,23 @@ class Tx_Xform_Controller_FormController extends Tx_Extbase_MVC_Controller_Actio
 	}
 	
 	/**
-	 * sends a mail to the site owner
+	 * sends all mails configured in the setting sendEmail
 	 *
 	 * @param $newForm
 	 * @param $body string
 	 * @return void
 	 */	
-	public function sendMailToClient($newForm, $body) {
-		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
-		$mail->setFrom(array($newForm->getEmail() => $newForm->getName()));
-		$mail->setTo(array($newForm->getEmailClient() => $newForm->getNameClient()));
-		$mail->setSubject($newForm->getEmailSubject());
-		$mail->setBody($body, 'text/html');
-		$mail->send();
-	}
-	
-	/**
-	 * sends a mail to the customer who just filled out the form
-	 *
-	 * @param $newForm
-	 * @param $body string
-	 * @return void
-	 */	
-	public function sendMailToCustomer($newForm, $body) {
-		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
-		$mail->setFrom(array($newForm->getEmailClient() => $newForm->getNameClient()));
-		$mail->setTo(array($newForm->getEmail() => $newForm->getName()));
-		$mail->setSubject($newForm->getEmailSubject());
-		$mail->setBody($body, 'text/html');
-		$mail->send();
+	public function sendEmails($newForm, $body) {
+		if (is_array($this->settings['sendEmail'])) {
+			foreach($this->settings['sendEmail'] as $mailSettings) {
+				$mail = t3lib_div::makeInstance('t3lib_mail_Message');
+				$mail->setFrom(array($newForm->$mailSettings['fromEmailProperty']() => $newForm->$mailSettings['fromNameProperty']()));
+				$mail->setTo(array($newForm->$mailSettings['toEmailProperty']() => $newForm->$mailSettings['toNameProperty']()));
+				$mail->setSubject($newForm->getEmailSubject());
+				$mail->setBody($body, 'text/html');
+				$mail->send();
+			}
+		}
 	}
 	
 	/**

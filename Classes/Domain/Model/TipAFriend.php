@@ -43,6 +43,9 @@ class Tx_Xform_Domain_Model_TipAFriend extends Tx_Xform_Domain_Model_Message {
 	 * @return string $requestUrl
 	 */
 	public function getRequestUrl() {
+		if ($this->requestUrl === NULL || $this->requestUrl === '') {
+			$this->setRequestUrl(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
+		}
 		return $this->requestUrl;
 	}
 	
@@ -59,6 +62,13 @@ class Tx_Xform_Domain_Model_TipAFriend extends Tx_Xform_Domain_Model_Message {
 	 */
 	public function setRequestUrl($requestUrl) {
 		$this->requestUrl = $requestUrl;
+	}
+	
+	/**
+	 * @return string $subject
+	 */
+	public function getEmailSubject() {
+		return $this->getSubject() . ' ' . $this->getNameClient();
 	}
 
 }
