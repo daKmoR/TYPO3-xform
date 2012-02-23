@@ -112,7 +112,7 @@ class Tx_Xform_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormViewH
 	 * @return void
 	 */
 	protected function setFormActionUri() {
-		if ($this->arguments->hasArgument('actionUri')) {
+		if ($this->hasArgument('actionUri')) {
 			$formActionUri = $this->arguments['actionUri'];
 		} else {
 			$uriBuilder = $this->controllerContext->getUriBuilder();
@@ -131,11 +131,23 @@ class Tx_Xform_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormViewH
 				->uriFor($this->arguments['action'], $this->arguments['arguments'], $this->arguments['controller'], $this->arguments['extensionName'], $this->arguments['pluginName']);
 			$this->formActionUriArguments = $uriBuilder->getArguments();
 		}
-		if ($this->arguments->hasArgument('id')) {
+		if ($this->hasArgument('id')) {
 			$formActionUri .= '#' . $this->arguments['id'];
 		}
 		
 		$this->tag->addAttribute('action', $formActionUri);
+	}
+
+	/**
+	 * overrides the hasArgument to be compatible with TYPO3 4.5
+	 *
+	 * @param string $argumentName the
+	 */
+	protected function hasArgument($argumentName) {
+		if (method_exists(parent, 'hasArgument')) {
+			return parent::hasArgument($argumentName);
+		}
+		return $this->arguments->hasArgument($argumentName);
 	}
 
 }
