@@ -28,27 +28,12 @@
  *
  * = Basic usage =
  *
- * Use <f:form> to output an HTML <form> tag which is targeted at the specified action, in the current controller and package.
- * It will submit the form data via a POST request. If you want to change this, use method="get" as an argument.
+ * Use <x:form> to output an HTML <form> tag which is targeted at the specified action, in the current controller and package.
+ * It will submit the form data via a POST request. If you want to change this, use method="get" as an argument. The form will contain honeypots
+ * and if filled by bots the Validator Tx_Xform_Domain_Validator_XformValidator will show an error.
  * <code title="Example">
- * <f:form action="...">...</f:form>
+ * <x:form action="...">...</x:form>
  * </code>
- *
- * = A complex form with a specified encoding type =
- *
- * <code title="Form with enctype set">
- * <f:form action=".." controller="..." package="..." enctype="multipart/form-data">...</f:form>
- * </code>
- *
- * = A Form which should render a domain object =
- *
- * <code title="Binding a domain object to a form">
- * <f:form action="..." name="customer" object="{customer}">
- *   <f:form.hidden property="id" />
- *   <f:form.textbox property="name" />
- * </f:form>
- * </code>
- * This automatically inserts the value of {customer.name} inside the textbox and adjusts the name of the textbox accordingly.
  *
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License, version 2
  */
