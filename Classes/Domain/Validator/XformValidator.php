@@ -25,7 +25,7 @@
  ***************************************************************/
 
 /**
- * Validator for not empty values
+ * Validator for not xform honeypots and user agent and fe_user cookie
  *
  * @package Extbase
  * @subpackage Validation\Validator
@@ -34,14 +34,14 @@
 class Tx_Xform_Domain_Validator_XformValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
 
 	/**
-	 * Checks if the given property ($propertyValue) is not empty (NULL or empty string).
+	 * Checks if
+	 * - honeypots are empty (or still have there designated values)
+	 * - there is a user agent
+	 * - there is a fe_user cookie
+	 * if any of these is wrong it dies with a message.
 	 *
-	 * If at least one error occurred, the result is FALSE.
-	 *
-	 * @param mixed $value The value that should be validated
-	 * @return boolean TRUE if the value is valid, FALSE if an error occured
 	 */
-	public function isValid($value) {
+	public function isValid() {
 		if (t3lib_div::_GP('name') || t3lib_div::_GP('email') || t3lib_div::_GP('e-mail') || t3lib_div::_GP('phone')) {
 			die('honeypot filled - u sure you are not a bot?');
 		}
@@ -58,10 +58,9 @@ class Tx_Xform_Domain_Validator_XformValidator extends Tx_Extbase_Validation_Val
 			die('no cookies - pls activate cookies for this page');
 		}
 		
-		// var_dump($value);
-		// var_dump(t3lib_div::_POST());
 		return true;
 	}
+	
 }
 
 ?>
