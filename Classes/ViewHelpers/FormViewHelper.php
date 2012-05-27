@@ -129,7 +129,7 @@ class Tx_Xform_ViewHelpers_FormViewHelper extends Tx_Fluid_ViewHelpers_FormViewH
 	 * @param string $argumentName the
 	 */
 	protected function hasArgument($argumentName) {
-		if (method_exists(parent, 'hasArgument')) {
+		if (method_exists(get_parent_class(), 'hasArgument')) {
 			return parent::hasArgument($argumentName);
 		}
 		return $this->arguments->hasArgument($argumentName);
