@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2011 Thomas Allmer <at@delusionworld.com>, WEBTEAM GmbH
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -32,129 +32,59 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Xform_Domain_Model_Custom1 extends Tx_Xform_Domain_Model_Message {
+class Tx_Xform_Domain_Model_Custom1 extends Tx_Xform_Domain_Model_Form {
 
 	/**
 	 * @var string
 	 * @validate NotEmpty
 	 */
-	protected $firstName;
+	protected $name;
+
+	/**
+	 * @var string
+	 */
+	protected $company;
 
 	/**
 	 * @var string
 	 * @validate NotEmpty
-	 */
-	protected $lastName;
-
-	/**
-	 * @var string
-	 */
-	protected $gender;
-
-	/**
-	 * @var string
-	 */
-	protected $parentName;
-	
-	/**
-	 * @var string
 	 */
 	protected $street;
 
 	/**
 	 * @var string
+	 * @validate NotEmpty
 	 */
 	protected $plz;
 
 	/**
 	 * @var string
+	 * @validate NotEmpty
 	 */
 	protected $place;
 
 	/**
-	 * @var DateTime
-	 * @validate DateTime
+	 * @var string
+	 * @validate NotEmpty
 	 */
-	protected $birthday;
+	protected $country;
 
 	/**
 	 * @var string
+	 * @validate NotEmpty
 	 */
-	protected $parentPhone;	
-	
-	/**
-	 * @var string
-	 */
-	protected $sportType;	
-	
-	/**
-	 * @var string
-	 */
-	protected $classDate;
-	
-	/**
-	 * @var string
-	 */
-	protected $skill;
+	protected $phone;
 
 	/**
-	 * @var string
+	 * @var integer
 	 */
-	protected $dragLift;
+	protected $type;
 
 	/**
-	 * @var string
-	 */
-	protected $liftCard;
-	
-	/**
 	 * @return string
 	 */
-	public function getParticipantName() {
-		return $this->getFirstName() . ' ' . $this->getLastName();
-	}
-	
-	/**
-	 * @return string
-	 */
-	public function getSportTypeValue() {
-		return $this->settings['sportTypes'][$this->sportType];
-	}
-	
-	/**
-	 * @return string
-	 */
-	public function getSkillValue() {
-		return $this->settings['skills'][$this->skill];
-	}
-	
-	/**
-	 * @return string
-	 */
-	public function getLiftCardValue() {
-		return $this->settings['liftCards'][$this->liftCard];
-	}
-	
-	/**
-	 * @return string
-	 */
-	public function getClassDateValue() {
-		return $this->settings['classDates'][$this->classDate];
-	}
-	
-	/**
-	 * @return string
-	 */
-	public function getPrice() {
-		return $this->settings['classPrices'][$this->classDate];
-	}
-
-	/**
-	 * @return string $subject
-	 */
-	public function getEmailSubject() {
-		return $this->getSubject() . ' ' . $this->getClassDateValue();
+	public function getTypeValue() {
+		return $this->settings['Types'][$this->type];
 	}
 
 }
-?>
