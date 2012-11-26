@@ -77,14 +77,21 @@ class Tx_Xform_Domain_Model_Custom1 extends Tx_Xform_Domain_Model_Form {
 
 	/**
 	 * @var integer
+	 * @validate NotEmpty
 	 */
 	protected $type;
+
+	/**
+	 * @var integer
+	 * @validate NotEmpty
+	 */
+	protected $gtc;
 
 	/**
 	 * @return string
 	 */
 	public function getTypeValue() {
-		return $this->settings['Types'][$this->type];
+		return $this->settings['types'][$this->type];
 	}
 
 }
